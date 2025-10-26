@@ -9,6 +9,7 @@ import {
   GamePhase,
 } from '../types';
 import { createPlayer, createFleet, isFleetDestroyed } from './player';
+import { autoPlaceShips } from './auto-placement';
 
 /**
  * Tworzy początkowy stan gry
@@ -48,6 +49,7 @@ export function createGameState(
  *
  * Przechodzi z fazy SETUP do BATTLE.
  * Tworzy floty dla obu graczy (jeśli jeszcze nie istnieją).
+ * TEMPORARY: Automatycznie rozmieszcza okręty losowo.
  *
  * @param state - Stan gry (modyfikowany in-place)
  *
@@ -69,12 +71,24 @@ export function initializeGame(state: GameState): void {
     state.players[PlayerId.PLAYER_1].ships = createFleet();
     state.players[PlayerId.PLAYER_1].shipsRemaining =
       state.players[PlayerId.PLAYER_1].ships.length;
+
+    // TEMPORARY: Auto-place ships randomly
+    autoPlaceShips(
+      state.players[PlayerId.PLAYER_1].board,
+      state.players[PlayerId.PLAYER_1].ships
+    );
   }
 
   if (state.players[PlayerId.PLAYER_2].ships.length === 0) {
     state.players[PlayerId.PLAYER_2].ships = createFleet();
     state.players[PlayerId.PLAYER_2].shipsRemaining =
       state.players[PlayerId.PLAYER_2].ships.length;
+
+    // TEMPORARY: Auto-place ships randomly
+    autoPlaceShips(
+      state.players[PlayerId.PLAYER_2].board,
+      state.players[PlayerId.PLAYER_2].ships
+    );
   }
 
   // Przejdź do fazy walki
