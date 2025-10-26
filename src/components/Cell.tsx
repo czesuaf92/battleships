@@ -2,12 +2,12 @@
  * @file Komponent pojedynczej komórki planszy
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   TouchableOpacity,
-  StyleSheet,
   View,
   ViewStyle,
+  Animated,
 } from 'react-native';
 import { CellStatus } from '../types';
 
@@ -45,6 +45,30 @@ export const Cell: React.FC<CellProps> = ({
   disabled = false,
   size = 30,
 }) => {
+  // Animacja fade-in dla hit/miss
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const prevStatusRef = useRef(status);
+
+  useEffect(() => {
+    // Jeśli status zmienił się na HIT, MISS lub SUNK, uruchom animację
+    if (
+      prevStatusRef.current !== status &&
+      (status === CellStatus.HIT || status === CellStatus.MISS || status === CellStatus.SUNK)
+    ) {
+      // Resetuj opacity do 0
+      fadeAnim.setValue(0);
+
+      // Animuj do pełnej widoczności
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    prevStatusRef.current = status;
+  }, [status, fadeAnim]);
+
   const handlePress = () => {
     if (!disabled) {
       onPress(row, col);
@@ -119,41 +143,45 @@ export const Cell: React.FC<CellProps> = ({
 
   const renderIndicator = () => {
     if (status === CellStatus.MISS) {
-      // Białe kółko dla pudła
+      // Białe kółko dla pudła z animacją
       return (
-        <View
-          style={{
-            width: size * 0.3,
-            height: size * 0.3,
-            borderRadius: size * 0.15,
-            backgroundColor: '#ffffff',
-          }}
-        />
+        <Animated.View style={{ opacity: fadeAnim }}>
+          <View
+            style={{
+              width: size * 0.3,
+              height: size * 0.3,
+              borderRadius: size * 0.15,
+              backgroundColor: '#ffffff',
+            }}
+          />
+        </Animated.View>
       );
     }
 
     if (status === CellStatus.HIT || status === CellStatus.SUNK) {
-      // Czerwony X dla trafienia
+      // Czerwony X dla trafienia z animacją
       return (
-        <View style={{ position: 'relative' }}>
-          <View
-            style={{
-              width: size * 0.6,
-              height: 2,
-              backgroundColor: '#ffffff',
-              transform: [{ rotate: '45deg' }],
-            }}
-          />
-          <View
-            style={{
-              width: size * 0.6,
-              height: 2,
-              backgroundColor: '#ffffff',
-              position: 'absolute',
-              transform: [{ rotate: '-45deg' }],
-            }}
-          />
-        </View>
+        <Animated.View style={{ opacity: fadeAnim }}>
+          <View style={{ position: 'relative' }}>
+            <View
+              style={{
+                width: size * 0.6,
+                height: 2,
+                backgroundColor: '#ffffff',
+                transform: [{ rotate: '45deg' }],
+              }}
+            />
+            <View
+              style={{
+                width: size * 0.6,
+                height: 2,
+                backgroundColor: '#ffffff',
+                position: 'absolute',
+                transform: [{ rotate: '-45deg' }],
+              }}
+            />
+          </View>
+        </Animated.View>
       );
     }
 
@@ -176,7 +204,3 @@ export const Cell: React.FC<CellProps> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  // Możemy dodać dodatkowe style tutaj jeśli potrzeba
-});

@@ -45,11 +45,59 @@ export function createGameState(
 }
 
 /**
+ * Ustawia okręty gracza po fazie rozmieszczania
+ *
+ * @param state - Stan gry (modyfikowany in-place)
+ * @param playerId - ID gracza
+ * @param board - Plansza z umieszczonymi okrętami
+ * @param ships - Lista okrętów gracza
+ *
+ * @example
+ * const state = createGameState('Alice', 'Bob');
+ * // ... gracz rozmieścił okręty w ShipPlacementScreen ...
+ * setPlayerShips(state, PlayerId.PLAYER_1, board, ships);
+ */
+export function setPlayerShips(
+  state: GameState,
+  playerId: PlayerId,
+  board: any,
+  ships: any[]
+): void {
+  state.players[playerId].board = board;
+  state.players[playerId].ships = ships;
+  state.players[playerId].shipsRemaining = ships.length;
+}
+
+/**
+ * Rozpoczyna bitwę po rozmieszczeniu okrętów przez obu graczy
+ *
+ * Przechodzi z fazy SETUP do BATTLE.
+ *
+ * @param state - Stan gry (modyfikowany in-place)
+ *
+ * @example
+ * const state = createGameState('Alice', 'Bob');
+ * // ... obaj gracze rozmieścili okręty ...
+ * startBattle(state);
+ * console.log(state.phase); // GamePhase.BATTLE
+ */
+export function startBattle(state: GameState): void {
+  if (state.phase !== GamePhase.SETUP) {
+    return;
+  }
+
+  state.phase = GamePhase.BATTLE;
+  state.currentPlayer = PlayerId.PLAYER_1;
+  state.turnCount = 1;
+}
+
+/**
  * Inicjalizuje grę - tworzy floty i rozpoczyna walkę
  *
  * Przechodzi z fazy SETUP do BATTLE.
  * Tworzy floty dla obu graczy (jeśli jeszcze nie istnieją).
  * TEMPORARY: Automatycznie rozmieszcza okręty losowo.
+ * DEPRECATED: Używaj setPlayerShips() i startBattle() zamiast tego.
  *
  * @param state - Stan gry (modyfikowany in-place)
  *

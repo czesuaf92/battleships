@@ -4,30 +4,33 @@
 
 ---
 
-## 🚀 Stage 5: Manual Ship Placement UI
+## ✅ Stage 5: Manual Ship Placement UI (COMPLETED)
 
 ### 🔥 Critical
-- [ ] Create ShipPlacementScreen component
+- [x] Create ShipPlacementScreen component
   - Grid for placing ships
   - Ship selector (4x types, show count remaining)
   - Orientation toggle (horizontal/vertical)
-  - Preview ship before placing
   - Validate placement (use existing `canPlaceShip()`)
   - "Clear All" button
   - "Random" button (use `autoPlaceShips()`)
   - "Start Battle" button (when all ships placed)
 
-- [ ] Add placement phase to game flow
+- [x] Add placement phase to game flow
   - Start in SETUP phase
   - Player 1 places ships
-  - Player 2 places ships (or auto-place for AI)
+  - Player 2 places ships (AI auto-places)
   - Transition to BATTLE phase
 
-- [ ] Update GameScreen integration
+- [x] Update GameScreen integration
   - Show ShipPlacementScreen when phase = SETUP
   - Show battle boards when phase = BATTLE
 
-### ⭐ High
+### ⭐ High (Deferred to Stage 6+)
+- [ ] Add hover preview before placing ship
+  - Show ship outline on hover/touch
+  - Green = valid, Red = invalid placement
+
 - [ ] Add drag-and-drop ship placement
   - Drag ship from palette to board
   - Rotate while dragging
@@ -40,34 +43,34 @@
 
 ---
 
-## 🎨 Stage 6: UI/UX Polish
+## ✅ Stage 6: UI/UX Polish (PARTIALLY COMPLETED)
 
 ### ⭐ High
-- [ ] Add animations
-  - Fade-in on cell hit/miss
-  - Explosion effect on ship sunk
-  - Wave animation on water (background)
-  - Ship placement animation
+- [x] Add animations
+  - [x] Fade-in on cell hit/miss
+  - [ ] Explosion effect on ship sunk
+  - [ ] Wave animation on water (background)
+  - [ ] Ship placement animation
 
 - [ ] Improve visual design
-  - Better ship graphics (not just gray squares)
-  - Water shader/texture
-  - Hit/miss explosion sprites
-  - Themed color schemes
+  - [ ] Better ship graphics (not just gray squares)
+  - [ ] Water shader/texture
+  - [ ] Hit/miss explosion sprites
+  - [ ] Themed color schemes
 
 - [ ] Add sound effects
-  - Water splash (miss)
-  - Explosion (hit)
-  - Ship sinking sound
-  - Victory/defeat music
-  - Background ambient (waves)
+  - [ ] Water splash (miss)
+  - [ ] Explosion (hit)
+  - [ ] Ship sinking sound
+  - [ ] Victory/defeat music
+  - [ ] Background ambient (waves)
 
 ### 📌 Medium
-- [ ] Add game statistics
-  - Hit/miss ratio
-  - Shots fired
-  - Accuracy percentage
-  - Time played
+- [x] Add game statistics
+  - [x] Hit/miss ratio
+  - [x] Shots fired
+  - [x] Accuracy percentage
+  - [ ] Time played
 
 - [ ] Add settings screen
   - Sound on/off
@@ -75,11 +78,11 @@
   - Visual effects toggle
   - AI difficulty
 
-- [ ] Improve AI opponent
-  - Hunt mode (after first hit)
-  - Target adjacent cells after hit
-  - Probability-based targeting
-  - Difficulty levels (Easy/Medium/Hard)
+- [x] Improve AI opponent
+  - [x] Hunt mode (after first hit)
+  - [x] Target adjacent cells after hit
+  - [ ] Probability-based targeting (advanced)
+  - [ ] Difficulty levels (Easy/Medium/Hard)
 
 ---
 
@@ -292,19 +295,15 @@
 
 ---
 
-## 🎯 Current Sprint (Stage 5)
+## 🎯 Current Sprint (Stage 6 - COMPLETED!)
 
-**Goal:** Replace auto-placement with manual ship placement UI
+**Goal:** Quick UX improvements and AI enhancement ✅
 
-**Estimate:** 2-3 days
-
-**Tasks:**
-1. Design ShipPlacementScreen mockup
-2. Create ship selector component (TDD)
-3. Add drag-and-drop or tap-to-place logic
-4. Integrate with game flow (SETUP → BATTLE)
-5. Test and refine UX
-6. Merge to main
+**Completed Tasks:**
+1. ✅ Add basic animations (fade-in on hit/miss)
+2. ✅ Improve AI (hunt mode after first hit)
+3. ✅ Add game statistics display
+4. ✅ Ready for mobile testing
 
 ---
 
@@ -312,22 +311,22 @@
 
 | Week | Stage | Focus |
 |------|-------|-------|
-| 1 | 5 | Manual ship placement |
-| 2 | 6 | UI/UX polish + animations |
-| 3 | 7 | Testing + AI improvements |
-| 4 | 8 | Local multiplayer |
+| 1 | ✅ 5 | Manual ship placement (DONE) |
+| 1-2 | ✅ 6 | Quick UX/AI improvements (DONE) |
+| 2-3 | 7 | Testing improvements OR Stage 8 |
+| 4 | 8/9 | Local multiplayer OR Mobile optimization |
 
 ---
 
 ## 💬 Questions / Decisions Needed
 
+- [x] ~~Target audience: Kids, adults, or both?~~ → **Wszyscy (all ages)**
+- [x] ~~Multiplayer priority: Local first, or online?~~ → **Local first (hot-seat)**
+- [x] ~~AI difficulty: Always random, or add smart mode?~~ → **Smart mode implemented!**
 - [ ] Should we support custom fleet configurations? (e.g., 2×4-cell ships)
-- [ ] AI difficulty: Always random, or add smart mode?
-- [ ] Multiplayer priority: Local first, or online?
 - [ ] Ship graphics: Realistic, cartoonish, or minimalist?
-- [ ] Target audience: Kids, adults, or both?
 
 ---
 
-**Last Updated:** After Stage 4 completion
-**Next Review:** After Stage 5 PR merged
+**Last Updated:** After Stage 6 completion (2025-10-26)
+**Next Review:** Ready for Stage 7 or Stage 8

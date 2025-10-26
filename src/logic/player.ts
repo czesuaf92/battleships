@@ -32,6 +32,12 @@ export function createPlayer(id: PlayerId, name: string): Player {
     board: createEmptyBoard(),
     ships: [],
     shipsRemaining: 0,
+    stats: {
+      shotsFired: 0,
+      hits: 0,
+      misses: 0,
+      shipsDestroyed: 0,
+    },
   };
 }
 

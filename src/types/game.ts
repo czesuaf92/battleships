@@ -75,6 +75,16 @@ export enum PlayerId {
 }
 
 /**
+ * Statystyki gracza
+ */
+export interface PlayerStats {
+  shotsFired: number;        // Całkowita liczba strzałów
+  hits: number;              // Liczba trafień
+  misses: number;            // Liczba pudeł
+  shipsDestroyed: number;    // Liczba zatopionych okrętów
+}
+
+/**
  * Dane gracza
  */
 export interface Player {
@@ -83,6 +93,7 @@ export interface Player {
   board: Board;
   ships: Ship[];
   shipsRemaining: number;    // Ilość nie zatopionych okrętów
+  stats: PlayerStats;        // Statystyki gracza
 }
 
 /**

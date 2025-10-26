@@ -100,9 +100,18 @@ export function processTurn(state: GameState, position: Position): TurnResult {
 
   // Pobierz przeciwnika (to jego plansza będzie ostrzeliwana)
   const opponent = getOpponentPlayer(state);
+  const currentPlayer = state.players[state.currentPlayer];
 
   // Wykonaj strzał
   const shotResult = processShot(opponent.board, position, opponent.ships);
+
+  // Aktualizuj statystyki strzelającego gracza
+  currentPlayer.stats.shotsFired++;
+  if (shotResult === ShotResult.HIT || shotResult === ShotResult.SUNK) {
+    currentPlayer.stats.hits++;
+  } else if (shotResult === ShotResult.MISS) {
+    currentPlayer.stats.misses++;
+  }
 
   // Znajdź zatopiony okręt (jeśli był)
   let sunkShip: Ship | undefined;
@@ -113,6 +122,8 @@ export function processTurn(state: GameState, position: Position): TurnResult {
       if (sunkShip) {
         // Zmniejsz licznik okrętów
         opponent.shipsRemaining--;
+        // Aktualizuj statystyki zatopionych okrętów
+        currentPlayer.stats.shipsDestroyed++;
       }
     }
   }
