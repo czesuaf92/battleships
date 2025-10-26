@@ -5,3 +5,4 @@
 export * from './board';
 export * from './ship-placement';
 export * from './combat';
+export * from './player';
