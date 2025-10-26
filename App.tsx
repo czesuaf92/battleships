@@ -1,14 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { GameScreen } from './src/components/GameScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🚢 Battleships Game</Text>
-      <Text style={styles.subtitle}>React Native + TDD</Text>
-      <Text style={styles.info}>Development mode active</Text>
-      <Text style={styles.version}>v1.0.0</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
+      <GameScreen />
     </View>
   );
 }
@@ -17,8 +15,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0077be',
+  },
+  scrollContent: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 40,
   },
   title: {
     fontSize: 32,
