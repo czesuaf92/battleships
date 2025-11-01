@@ -3,7 +3,7 @@
 **Last Updated:** 2025-11-01
 
 ## In Progress
-(none)
+- Bolek: [Stage 7] Improve test coverage to 100% (branch: feature/bolek-100-percent-coverage)
 
 ## Under Review
 (none)
