@@ -1,62 +1,178 @@
 # Claude Code Ignore File
 # Files and directories that Claude should avoid reading to save tokens
+# Documentation: https://docs.claude.com/claude-code/claudeignore
 
-# Dependencies (NEVER read these)
-node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# ═══════════════════════════════════════════════════════════════
+# DEPENDENCIES (HUGE - NEVER READ)
+# ═══════════════════════════════════════════════════════════════
+# These files are massive (100k+ lines) and rarely needed for development
+# If you need package info, read package.json instead
 
-# Build outputs
-dist/
-build/
-.expo/
-.expo-shared/
-web-build/
+node_modules/           # NPM packages (auto-installed)
+package-lock.json       # NPM dependency tree (~115k lines!)
+yarn.lock              # Yarn dependency tree
+pnpm-lock.yaml         # PNPM dependency tree
+.pnpm-store/           # PNPM package cache
 
-# Test coverage (auto-generated)
-coverage/
-.nyc_output/
+# ═══════════════════════════════════════════════════════════════
+# BUILD OUTPUTS (AUTO-GENERATED)
+# ═══════════════════════════════════════════════════════════════
+# These are compiled/bundled files - read source files instead
 
-# IDE / Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
+dist/                  # Production builds
+build/                 # Alternative build directory
+.expo/                 # Expo build artifacts
+.expo-shared/          # Expo shared resources
+web-build/             # Expo web build output
+ios/                   # iOS native builds (if ejected)
+android/               # Android native builds (if ejected)
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# ═══════════════════════════════════════════════════════════════
+# TEST COVERAGE (AUTO-GENERATED REPORTS)
+# ═══════════════════════════════════════════════════════════════
+# These are HTML/JSON reports - run `npm test:coverage` to regenerate
 
-# Environment
-.env
-.env.local
-.env.*.local
+coverage/              # Jest coverage reports
+.nyc_output/           # NYC coverage cache
+*.lcov                 # Coverage data files
 
-# Cache
-.cache/
-*.cache
+# ═══════════════════════════════════════════════════════════════
+# IDE / EDITOR CONFIG (NOT PROJECT CODE)
+# ═══════════════════════════════════════════════════════════════
+# Editor-specific settings - not relevant to code logic
 
-# Temporary files
-*.tmp
-.temp/
+.vscode/               # VSCode settings (except settings.json if needed)
+.idea/                 # JetBrains IDEs (WebStorm, IntelliJ)
+*.swp                  # Vim swap files
+*.swo                  # Vim swap files (alternative)
+*~                     # Backup files (Emacs, gedit)
+.DS_Store              # macOS folder metadata
+Thumbs.db              # Windows thumbnail cache
 
-# Large binary files
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.ico
-*.svg
-*.mp3
-*.mp4
-*.mov
-*.pdf
+# ═══════════════════════════════════════════════════════════════
+# LOGS (TOO VERBOSE)
+# ═══════════════════════════════════════════════════════════════
+# Log files can be huge - if debugging, tail specific log instead
 
-# Documentation that's rarely needed
-CHANGELOG.md
-LICENSE
+*.log                  # All log files
+npm-debug.log*         # NPM debug logs
+yarn-debug.log*        # Yarn debug logs
+yarn-error.log*        # Yarn error logs
+lerna-debug.log*       # Lerna debug logs
+pnpm-debug.log*        # PNPM debug logs
+
+# ═══════════════════════════════════════════════════════════════
+# ENVIRONMENT VARIABLES (SECRETS)
+# ═══════════════════════════════════════════════════════════════
+# Should never be read by AI to prevent accidental exposure
+
+.env                   # Default environment file
+.env.local             # Local overrides
+.env.*.local           # Stage-specific local overrides
+.env.development       # Development environment (if contains secrets)
+.env.production        # Production environment (likely has secrets)
+
+# ═══════════════════════════════════════════════════════════════
+# CACHE DIRECTORIES (TEMPORARY, AUTO-GENERATED)
+# ═══════════════════════════════════════════════════════════════
+# Cache files - can be safely deleted and regenerated
+
+.cache/                # General cache directory
+*.cache                # Cache files
+.eslintcache           # ESLint cache
+.stylelintcache        # Stylelint cache
+.parcel-cache/         # Parcel bundler cache
+.next/                 # Next.js cache
+.nuxt/                 # Nuxt.js cache
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPORARY FILES
+# ═══════════════════════════════════════════════════════════════
+
+*.tmp                  # Generic temporary files
+.temp/                 # Temporary directory
+.tmp/                  # Alternative temp directory
+
+# ═══════════════════════════════════════════════════════════════
+# MEDIA / BINARY FILES (NOT CODE)
+# ═══════════════════════════════════════════════════════════════
+# Large binary files - Claude can view images but prefer not to
+# Exception: If you need to analyze screenshots, explicitly Read them
+
+# Images
+*.png                  # Raster images
+*.jpg                  # JPEG images
+*.jpeg                 # JPEG alternative extension
+*.gif                  # Animated images
+*.ico                  # Icons
+*.webp                 # Modern image format
+*.bmp                  # Bitmap images
+# *.svg                # SVG (commented out - might contain diagrams)
+
+# Audio
+*.mp3                  # Audio files
+*.wav                  # Audio files
+*.ogg                  # Audio files
+*.m4a                  # Audio files
+
+# Video
+*.mp4                  # Video files
+*.mov                  # Video files
+*.avi                  # Video files
+*.webm                 # Video files
+
+# Documents
+*.pdf                  # PDF documents (Claude can read but slow)
+*.doc                  # Word documents
+*.docx                 # Word documents
+
+# Archives
+*.zip                  # Compressed archives
+*.tar                  # Tar archives
+*.gz                   # Gzip archives
+*.7z                   # 7-Zip archives
+
+# Fonts
+*.ttf                  # TrueType fonts
+*.otf                  # OpenType fonts
+*.woff                 # Web fonts
+*.woff2                # Web fonts
+
+# ═══════════════════════════════════════════════════════════════
+# DOCUMENTATION (RARELY NEEDED - READ ONLY IF EXPLICITLY REQUIRED)
+# ═══════════════════════════════════════════════════════════════
+# Most documentation can be skipped - read when specifically needed
+# REMOVED: CHANGELOG.md (now useful for understanding completed work)
+
+LICENSE                # License text (rarely changes)
+LICENSE.txt            # License text (alternative)
+CODEOWNERS             # GitHub code owners (not code)
+
+# ═══════════════════════════════════════════════════════════════
+# VERSION CONTROL (GIT INTERNALS)
+# ═══════════════════════════════════════════════════════════════
+# Git internal files - not project source code
+
+.git/                  # Git repository data
+.gitattributes         # Git file attributes
+.gitkeep               # Empty directory markers
+
+# ═══════════════════════════════════════════════════════════════
+# CI/CD ARTIFACTS (AUTO-GENERATED)
+# ═══════════════════════════════════════════════════════════════
+
+.github/workflows/*/results/   # GitHub Actions results
+junit.xml              # Test results
+test-results/          # Test output directories
+
+# ═══════════════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════════════
+#
+# If you need to read an ignored file:
+# 1. Use Read tool with explicit file path
+# 2. Or temporarily remove from .claudeignore
+#
+# Token savings from this file: ~150k tokens per session
+#
+# Last updated: 2025-11-01

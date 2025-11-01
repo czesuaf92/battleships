@@ -9,30 +9,37 @@
 **Methodology:** TDD (Test-Driven Development)
 **Platform:** iOS/Android/Web
 
-**Game:** Classic Battleships (2 players, 10x10 board, turn-based naval combat)
+**Game:** Classic Battleships (2 players, 10×10 board, turn-based naval combat)
+
+**Documentation:**
+- [BACKLOG.md](./BACKLOG.md) - Active tasks (Stages 7-10)
+- [CHANGELOG.md](./CHANGELOG.md) - Completed work (Stages 1-6)
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - Code style & workflow
+- [README.md](./README.md) - Setup & gameplay
 
 ---
 
-## 📁 Project Structure (Token-Optimized)
+## 📁 Project Structure
 
 ```
 battleships/
 ├── src/
 │   ├── components/          # UI (React Native)
 │   │   ├── Cell.tsx         # Single grid cell (5 states)
-│   │   ├── Board.tsx        # 10x10 grid + labels
-│   │   └── GameScreen.tsx   # Main game UI + AI
+│   │   ├── Board.tsx        # 10×10 grid + labels
+│   │   ├── GameScreen.tsx   # Main game UI + AI
+│   │   └── ShipPlacementScreen.tsx # Ship placement UI
 │   │
-│   ├── logic/               # Game logic (pure TS, 98% test coverage)
+│   ├── logic/               # Game logic (pure TS, 98% coverage)
 │   │   ├── board.ts         # Board creation
 │   │   ├── ship-placement.ts # Placement rules (no overlap/touch)
 │   │   ├── combat.ts        # Shot processing
 │   │   ├── player.ts        # Player/fleet init
 │   │   ├── game-state.ts    # State management
 │   │   ├── turn-manager.ts  # Turn logic + hit bonus
-│   │   └── auto-placement.ts # TEMPORARY: Random ship placement
+│   │   └── auto-placement.ts # Random placement helper
 │   │
-│   ├── types/               # TypeScript definitions
+│   ├── types/
 │   │   └── game.ts          # All types & enums
 │   │
 │   ├── constants/
@@ -42,14 +49,15 @@ battleships/
 │       └── coordinates.ts   # Position validation
 │
 ├── __tests__/               # 117 tests, 98.26% coverage
-├── App.tsx                  # Entry point
-├── package.json
-└── tsconfig.json
+├── BACKLOG.md               # Active tasks
+├── CHANGELOG.md             # Completed stages
+├── CONTRIBUTING.md          # Developer guide
+└── README.md                # Project overview
 ```
 
 ---
 
-## 🔑 Core Concepts (Must Know)
+## 🔑 Core Concepts
 
 ### Game Rules
 1. **Board:** 10×10 grid (A-J columns, 1-10 rows)
@@ -70,9 +78,9 @@ PlayerId: PLAYER_1 | PLAYER_2
 
 ### Data Flow
 ```
-createGameState() → initializeGame() → auto-place ships
+SETUP phase → Player places ships → AI auto-places
                  ↓
-              BATTLE phase
+            BATTLE phase
                  ↓
 handleShot() → processTurn() → update board → check victory
                  ↓
@@ -81,62 +89,23 @@ handleShot() → processTurn() → update board → check victory
 
 ---
 
-## ⚡ Token Optimization Strategies
+## 🧩 Implementation Status
 
-### 1. **DON'T Read These Files Unless Necessary**
-- `package-lock.json` (huge, rarely needed)
-- `node_modules/` (never)
-- `coverage/` (test reports, auto-generated)
-- `__tests__/` (unless fixing tests)
+### ✅ Completed (Stages 1-6)
+See [CHANGELOG.md](./CHANGELOG.md) for full details.
 
-### 2. **Read These First for Context**
-- `CLAUDE.md` ← YOU ARE HERE
-- `BACKLOG.md` (todo list)
-- `src/types/game.ts` (all types)
-- `src/logic/index.ts` (exports overview)
+**Stage 1-2:** Project setup + game logic (TDD)
+**Stage 3-4:** State management + playable UI
+**Stage 5:** Manual ship placement
+**Stage 6:** UX polish + smart AI
 
-### 3. **Use Grep/Glob Instead of Read**
-- Search for functions: `grep "export function"`
-- Find components: `glob "src/components/*.tsx"`
-- Avoid reading entire files when searching
+### 🚧 Active Work (Stage 7+)
+See [BACKLOG.md](./BACKLOG.md) for current priorities.
 
-### 4. **Leverage Existing Tests**
-- All logic is tested → trust the tests
-- If logic works, don't re-read implementation
-- Focus on new features
-
-### 5. **Use AI Code Assistants**
-When possible, delegate to:
-- **GitHub Copilot** - Code completion
-- **Cursor AI** - Quick refactors
-- **Claude** (you) - Architecture, complex logic
-- **GPT-4** - Documentation, explanations
-
----
-
-## 🧩 Current Implementation Status
-
-### ✅ Completed (Stages 1-4)
-- [x] Project setup (Expo + TypeScript + Jest)
-- [x] Board logic (creation, validation)
-- [x] Ship placement (with strict rules)
-- [x] Combat system (shots, hits, sinking)
-- [x] Player management
-- [x] Game state management
-- [x] Turn system with hit bonus
-- [x] UI components (Cell, Board, GameScreen)
-- [x] AI opponent (random shots)
-- [x] Victory/defeat detection
-
-### 🚧 In Progress / TODO
-See `BACKLOG.md` for complete list.
-
-Priority items:
-- [ ] Manual ship placement UI (replace auto-placement)
-- [ ] Ship placement phase before battle
-- [ ] Better UI/UX polish
-- [ ] Animations and sound effects
-- [ ] Multiplayer (local/online)
+**Stage 7:** Testing & quality (component tests, E2E)
+**Stage 8:** Local multiplayer (hot-seat)
+**Stage 9:** Mobile optimization (iOS/Android testing)
+**Stage 10:** Advanced features (power-ups, achievements)
 
 ---
 
@@ -160,6 +129,8 @@ git add -A
 git commit -m "feat: description"
 gh pr create --title "..." --body "..."
 ```
+
+Full workflow details in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
@@ -187,6 +158,8 @@ gh pr create --title "..." --body "..."
 - Inline comments for complex logic
 - Mark temporary code: `// TEMPORARY: ...`
 
+Full style guide in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ---
 
 ## 🎨 UI Component States
@@ -210,38 +183,55 @@ gh pr create --title "..." --body "..."
 
 ---
 
-## 🐛 Known Issues / Quirks
+## 🤖 AI Development Guidelines
 
-1. **Component tests skipped:** React Native + Expo + Jest config is tricky
-2. **Auto-placement is temporary:** Will be replaced with manual UI
-3. **AI is basic:** Random shots, no strategy (intentional for now)
-4. **No animations yet:** Game works but feels static
-5. **Web-only tested:** Mobile (iOS/Android) not fully tested
+### Token Optimization
 
----
+**DON'T read these unless necessary:**
+- `package-lock.json` (huge, rarely needed)
+- `node_modules/` (never)
+- `coverage/` (test reports, auto-generated)
+- `__tests__/` (unless fixing tests)
 
-## 💡 Tips for AI Assistants
+**Read these first for context:**
+- `CLAUDE.md` ← YOU ARE HERE
+- `BACKLOG.md` (active tasks)
+- `CHANGELOG.md` (completed work)
+- `src/types/game.ts` (all types)
 
-### When Adding Features
+**Use Grep/Glob instead of Read:**
+- Search functions: `grep "export function"`
+- Find components: `glob "src/components/*.tsx"`
+- Avoid reading entire files when searching
+
+**Leverage existing tests:**
+- All logic is tested → trust the tests
+- If logic works, don't re-read implementation
+- Focus on new features
+
+### Task Workflows
+
+**When adding features:**
 1. Check `BACKLOG.md` for context
-2. Read relevant `src/types/game.ts` types
+2. Read relevant types from `src/types/game.ts`
 3. Check existing tests in `__tests__/`
 4. Follow TDD: test first, then implement
-5. Update BACKLOG.md when done
+5. Update `BACKLOG.md` when done
 
-### When Debugging
+**When debugging:**
 1. Check test output first
 2. Use TypeScript errors as guide
 3. Grep for error messages
 4. Check `src/logic/` for game rules
 
-### When Refactoring
+**When refactoring:**
 1. Run tests before/after
 2. Keep coverage above 95%
 3. Don't break existing API
 4. Update JSDoc if needed
 
-### Avoid
+### What to Avoid
+
 - ❌ Reading entire files when you need 1 function
 - ❌ Re-implementing tested logic
 - ❌ Adding dependencies without asking
@@ -250,51 +240,86 @@ gh pr create --title "..." --body "..."
 
 ---
 
+## 🐛 Known Issues
+
+### Current Issues
+1. **Component testing blocked:** Jest + Expo + React Native config conflicts
+   - **Status:** Deferred to Stage 7
+   - **Solution:** Research Detox vs RNTL
+   - **Details:** [BACKLOG.md#stage-7](./BACKLOG.md#-stage-7-testing--quality)
+
+2. **Mobile not fully tested:** Web-only testing so far
+   - **Status:** Stage 9 priority
+   - **Need:** Real iOS/Android device testing
+
+3. **TypeScript not strict:** `strict: false` in tsconfig.json
+   - **Status:** Stage 7 tech debt
+   - **Risk:** May have hidden type errors
+
+### Recently Resolved
+- ✅ ~~Auto-placement only~~ → Manual UI added (Stage 5)
+- ✅ ~~Random AI~~ → Smart hunt mode (Stage 6)
+- ✅ ~~No animations~~ → Fade-in effects (Stage 6)
+- ✅ ~~No statistics~~ → Hit/miss tracking (Stage 6)
+
+Full tech debt list in [BACKLOG.md](./BACKLOG.md#-known-issues--tech-debt).
+
+---
+
 ## 📚 External Resources
 
-- **React Native:** https://reactnative.dev/
-- **Expo:** https://docs.expo.dev/
-- **TypeScript:** https://www.typescriptlang.org/docs/
-- **Jest:** https://jestjs.io/docs/getting-started
-- **Testing Library:** https://testing-library.com/docs/react-native-testing-library/intro
+| Resource | Link |
+|----------|------|
+| React Native | https://reactnative.dev/ |
+| Expo | https://docs.expo.dev/ |
+| TypeScript | https://www.typescriptlang.org/docs/ |
+| Jest | https://jestjs.io/docs/getting-started |
+| Testing Library | https://testing-library.com/docs/react-native-testing-library/intro |
 
 ---
 
 ## 🤝 Git Workflow
 
-Each stage = separate branch + PR:
+**Completed branches:**
 ```
 main
  ├── feature/stage-1-setup (merged)
  ├── feature/stage-2-game-logic (merged)
  ├── feature/stage-3-game-state (merged)
- ├── feature/stage-4-board-ui (current)
- └── feature/stage-5-ship-placement (next)
+ ├── feature/stage-4-board-ui (merged)
+ └── feature/stage-5-6-placement-ux (merged)
 ```
 
-**Commit Format:**
+**Next:** Stage 7 (testing) or Stage 8 (multiplayer)
+
+**Commit format:**
 ```
 feat: Add ship placement UI
 fix: Correct hit detection logic
 test: Add tests for turn manager
-docs: Update BACKLOG.md
+docs: Update documentation
 ```
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for full workflow.
 
 ---
 
 ## 📊 Quick Stats
 
-- **Lines of Code:** ~2000 (excluding tests)
-- **Test Coverage:** 98.26% statements, 100% functions
-- **Total Tests:** 117 (all passing)
-- **Dependencies:** Minimal (React Native, Expo, Jest)
-- **Token Usage:** ~50k per full session (optimize!)
+| Metric | Value |
+|--------|-------|
+| Lines of Code | ~2,500 (excluding tests) |
+| Test Coverage | 98.26% statements, 100% functions |
+| Total Tests | 117 (all passing) |
+| Stages Completed | 6 of 10 |
+| Dependencies | Minimal (React Native, Expo, Jest) |
 
 ---
 
-**Last Updated:** Stage 4 (Playable Game UI)
-**Next:** Stage 5 (Manual Ship Placement)
+**Last Updated:** 2025-11-01 (after Stage 6 completion)
+**Current Stage:** Stage 7 (Testing & Quality)
+**Next Priority:** Fix component testing setup
 
 ---
 
-> 💡 **Remember:** This project prioritizes clean code, tests, and learning over speed. Take your time, follow TDD, and ask questions if unclear!
+> 💡 **Project Philosophy:** Clean code, comprehensive tests, and learning over speed. Follow TDD, ask questions, and enjoy the process!
