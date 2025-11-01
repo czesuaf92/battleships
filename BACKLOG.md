@@ -1,175 +1,125 @@
 # Battleships - Product Backlog
 
 > **Priority:** 🔥 Critical | ⭐ High | 📌 Medium | 💡 Nice-to-have
+>
+> **Completed stages:** See [CHANGELOG.md](./CHANGELOG.md) for Stages 1-6
 
 ---
 
-## ✅ Stage 5: Manual Ship Placement UI (COMPLETED)
+## 📍 Current Status
 
-### 🔥 Critical
-- [x] Create ShipPlacementScreen component
-  - Grid for placing ships
-  - Ship selector (4x types, show count remaining)
-  - Orientation toggle (horizontal/vertical)
-  - Validate placement (use existing `canPlaceShip()`)
-  - "Clear All" button
-  - "Random" button (use `autoPlaceShips()`)
-  - "Start Battle" button (when all ships placed)
+**Last Completed:** Stage 6 (UX/AI Polish) - October 26, 2025
+**Next Priority:** Stage 7 (Testing & Quality)
+**Active Sprint:** Improving test infrastructure
 
-- [x] Add placement phase to game flow
-  - Start in SETUP phase
-  - Player 1 places ships
-  - Player 2 places ships (AI auto-places)
-  - Transition to BATTLE phase
-
-- [x] Update GameScreen integration
-  - Show ShipPlacementScreen when phase = SETUP
-  - Show battle boards when phase = BATTLE
-
-### ⭐ High (Deferred to Stage 6+)
-- [ ] Add hover preview before placing ship
-  - Show ship outline on hover/touch
-  - Green = valid, Red = invalid placement
-
-- [ ] Add drag-and-drop ship placement
-  - Drag ship from palette to board
-  - Rotate while dragging
-  - Visual feedback (valid/invalid placement)
-
-- [ ] Add placement tutorial/hints
-  - First-time user guide
-  - Highlight valid placement zones
-  - Show ship spacing rules
-
----
-
-## ✅ Stage 6: UI/UX Polish (PARTIALLY COMPLETED)
-
-### ⭐ High
-- [x] Add animations
-  - [x] Fade-in on cell hit/miss
-  - [ ] Explosion effect on ship sunk
-  - [ ] Wave animation on water (background)
-  - [ ] Ship placement animation
-
-- [ ] Improve visual design
-  - [ ] Better ship graphics (not just gray squares)
-  - [ ] Water shader/texture
-  - [ ] Hit/miss explosion sprites
-  - [ ] Themed color schemes
-
-- [ ] Add sound effects
-  - [ ] Water splash (miss)
-  - [ ] Explosion (hit)
-  - [ ] Ship sinking sound
-  - [ ] Victory/defeat music
-  - [ ] Background ambient (waves)
-
-### 📌 Medium
-- [x] Add game statistics
-  - [x] Hit/miss ratio
-  - [x] Shots fired
-  - [x] Accuracy percentage
-  - [ ] Time played
-
-- [ ] Add settings screen
-  - Sound on/off
-  - Music volume
-  - Visual effects toggle
-  - AI difficulty
-
-- [x] Improve AI opponent
-  - [x] Hunt mode (after first hit)
-  - [x] Target adjacent cells after hit
-  - [ ] Probability-based targeting (advanced)
-  - [ ] Difficulty levels (Easy/Medium/Hard)
+### Recent Achievements
+- ✅ Manual ship placement UI
+- ✅ Smart AI with hunt mode
+- ✅ Game statistics tracking
+- ✅ Basic animations
 
 ---
 
 ## 🧪 Stage 7: Testing & Quality
 
+### 🔥 Critical
+- [ ] Fix React Native component testing setup
+  - Jest + Expo + RN config conflicts
+  - Research: Detox vs React Native Testing Library
+  - Document solution in CONTRIBUTING.md
+  - **Related:** `__tests__/` (currently skipped)
+
 ### ⭐ High
 - [ ] Add UI component tests
-  - Solve React Native + Expo + Jest config
-  - Test Cell rendering
-  - Test Board interactions
-  - Test GameScreen state changes
-  - OR use snapshot testing as alternative
+  - Test Cell rendering (5 states: EMPTY/SHIP/MISS/HIT/SUNK)
+  - Test Board interactions (touch handlers, grid layout)
+  - Test GameScreen state changes (turn switching, victory)
+  - Alternative: snapshot testing if mocking too complex
+  - **Files:** `src/components/*.tsx`
 
 - [ ] Add E2E tests
-  - Full game playthrough
-  - Ship placement flow
+  - Full game playthrough (placement → battle → victory)
+  - Ship placement validation flow
   - Victory/defeat scenarios
-  - Edge cases
+  - Edge cases (boundary shots, adjacent ships)
+  - **Tool:** Detox or Maestro
 
 ### 📌 Medium
-- [ ] Improve test coverage
-  - Cover edge cases in combat
-  - Test all ship orientations
-  - Test boundary conditions
-  - Reach 100% coverage
+- [ ] Improve test coverage to 100%
+  - Cover edge cases in `combat.ts:handleShot()`
+  - Test all ship orientations in `ship-placement.ts`
+  - Boundary conditions in `coordinates.ts`
+  - **Current:** 98.26% coverage, 117 tests
 
 - [ ] Add performance tests
-  - Measure render time
-  - Optimize re-renders
-  - Profile memory usage
+  - Measure render time for Board component
+  - Profile re-renders (React DevTools)
+  - Memory usage during long games
+  - **Target:** <16ms render time (60fps)
 
 ---
 
-## 🌐 Stage 8: Multiplayer
+## 🌐 Stage 8: Local Multiplayer
 
 ### ⭐ High
-- [ ] Local multiplayer (hot-seat)
-  - Player 1 places ships → hide screen
-  - Player 2 places ships → hide screen
-  - Alternating turns
-  - Don't show enemy ships
+- [ ] Implement hot-seat multiplayer
+  - Player 1 places ships → "Pass device" screen
+  - Player 2 places ships → "Pass device" screen
+  - Alternating turns with screen hiding
+  - Don't show enemy ships to current player
+  - **Files:** `src/components/MultiplayerScreen.tsx` (new)
 
-- [ ] Pass-and-play UX
-  - "Pass device" screen between turns
-  - Auto-hide opponent board
-  - Turn timer
+- [ ] Add pass-and-play UX
+  - "Pass device to Player X" modal
+  - Auto-hide opponent board during handoff
+  - Optional turn timer (30s default)
+  - Confirmation before showing board
+  - **Design:** Similar to Words With Friends
 
 ### 💡 Nice-to-have
-- [ ] Online multiplayer
-  - Choose backend: Firebase / Supabase / custom
-  - Matchmaking system
-  - Real-time updates
+- [ ] Online multiplayer (deferred to Stage 8b)
+  - Backend choice: Firebase Realtime DB
+  - Matchmaking system (random or invite)
+  - Real-time game updates
   - Chat functionality
-  - Friend invites
+  - Friend invites via share link
 
 - [ ] Replay system
-  - Save game history
-  - Watch replay
-  - Share replay link
+  - Save game history to AsyncStorage
+  - Playback controls (play/pause/speed)
+  - Share replay as JSON export
 
 ---
 
 ## 📱 Stage 9: Mobile Optimization
 
-### ⭐ High
+### 🔥 Critical
 - [ ] Test on real iOS device
-  - Fix simulator issues
-  - Test performance
-  - Test gestures
+  - Run via Expo Go or standalone build
+  - Test touch gestures (tap, long-press)
+  - Verify performance (no lag on ship placement)
+  - **Device:** iPhone 12+ or iPad
 
-- [ ] Test on Android device
-  - Ensure compatibility
-  - Test different screen sizes
-  - Optimize for tablets
+- [ ] Test on real Android device
+  - Test multiple screen sizes (phone + tablet)
+  - Verify touch responsiveness
+  - Check for device-specific bugs
+  - **Devices:** Samsung Galaxy, Google Pixel
 
 ### 📌 Medium
 - [ ] Add responsive layouts
-  - Portrait mode optimized
-  - Landscape mode optimized
-  - Tablet layouts (bigger boards)
-  - Different screen densities
+  - Portrait mode: vertical board stacking
+  - Landscape mode: side-by-side boards
+  - Tablet: larger boards (scalable cell size)
+  - Handle different aspect ratios (notches, etc.)
+  - **Files:** `src/components/Board.tsx` layout logic
 
-- [ ] Add accessibility
-  - Screen reader support
-  - High contrast mode
-  - Font size options
-  - Color-blind friendly palette
+- [ ] Improve accessibility
+  - Screen reader support (labels for cells)
+  - High contrast mode (WCAG AA compliant)
+  - Font size options (small/medium/large)
+  - Color-blind friendly palette (deuteranopia mode)
+  - **Testing:** iOS VoiceOver + Android TalkBack
 
 ---
 
@@ -177,156 +127,160 @@
 
 ### 💡 Nice-to-have
 - [ ] Power-ups/Special abilities
-  - Sonar (reveal 3x3 area)
-  - Air strike (hit 5 random cells)
-  - Repair (restore 1 hit point)
+  - **Sonar:** Reveal 3×3 area (1 use per game)
+  - **Air strike:** Hit 5 random cells (1 use per game)
+  - **Repair:** Restore 1 HIT to SHIP (1 use per game)
+  - Balance: Optional game mode (classic vs power-ups)
 
 - [ ] Different game modes
-  - Salvo (shots = ships remaining)
-  - Fog of war (limited vision)
-  - Time attack (fastest to win)
-  - Custom fleet (choose your ships)
+  - **Salvo:** Shots per turn = ships remaining
+  - **Fog of war:** Only see 5×5 area around last hit
+  - **Time attack:** Win in fewest turns (leaderboard)
+  - **Custom fleet:** Choose ship sizes (10 total cells)
 
 - [ ] Achievements system
-  - First win
-  - Perfect game (no misses)
-  - Sink all ships in X turns
-  - Win streak
+  - "First Victory" - Win your first game
+  - "Perfect Game" - Win without missing
+  - "Quick Victory" - Win in <25 turns
+  - "Win Streak" - Win 5 games in a row
+  - Store in AsyncStorage, sync to backend later
 
 - [ ] Leaderboards
-  - Global rankings
-  - Friend rankings
-  - Season-based resets
+  - Global rankings (wins, win rate, avg turns)
+  - Friend rankings (local network)
+  - Season-based resets (monthly)
+  - Requires: online multiplayer (Stage 8b)
 
 ---
 
-## 🐛 Known Bugs / Tech Debt
+## 🐛 Known Issues & Tech Debt
 
 ### 🔥 Critical
-- None currently
+_None currently_
 
 ### ⭐ High
-- [ ] Fix React Native component testing setup
-  - Jest + Expo + RN config conflicts
-  - Consider alternative: Detox for E2E
+- [ ] Component testing blocked
+  - **Issue:** Jest + Expo + React Native Testing Library conflicts
+  - **Solution:** Migrate to Detox or fix Jest config
+  - **Link:** `__tests__/components/` (all skipped)
+  - **Priority:** Stage 7
 
 ### 📌 Medium
-- [ ] Remove auto-placement when manual UI is ready
-  - Delete `src/logic/auto-placement.ts`
-  - Update `initializeGame()` to skip auto-placement
-  - Keep as "Random" button option
+- [ ] Auto-placement still in codebase
+  - **Issue:** `src/logic/auto-placement.ts` no longer primary method
+  - **Solution:** Keep as "Random" button, document as helper
+  - **Action:** Update JSDoc comments to clarify usage
+  - **Link:** `src/logic/auto-placement.ts:10`
 
-- [ ] Improve TypeScript strictness
-  - Enable `strict: true` in tsconfig
-  - Remove `any` types
-  - Add stricter null checks
+- [ ] TypeScript strictness
+  - **Issue:** `strict: false` in tsconfig.json
+  - **Solution:** Enable strict mode + fix type errors
+  - **Risk:** May break existing code, needs testing
+  - **Link:** `tsconfig.json:5`
 
-- [ ] Optimize bundle size
-  - Analyze with `npx expo-cli build:web --analyze`
-  - Code splitting
-  - Lazy load screens
+- [ ] Bundle size optimization
+  - **Issue:** No code splitting, all screens load at once
+  - **Solution:** Lazy load GameScreen, ShipPlacementScreen
+  - **Tool:** `npx expo-cli build:web --analyze`
+  - **Target:** <500 KB initial bundle
 
 ---
 
-## 📝 Documentation
+## 📝 Documentation Tasks
 
 ### 📌 Medium
-- [ ] Add README.md
-  - Project description
-  - Setup instructions
-  - Screenshots
-  - How to play
-
-- [ ] Add CONTRIBUTING.md
-  - Code style guide
-  - PR process
-  - How to run tests
-
-- [ ] Add inline code comments
-  - Complex algorithms
-  - Business logic explanations
+- [x] ~~Add README.md~~ → **In progress** (this refactor)
+- [x] ~~Add CONTRIBUTING.md~~ → **In progress** (this refactor)
+- [x] ~~Add CHANGELOG.md~~ → **Completed** (2025-11-01)
 
 ### 💡 Nice-to-have
-- [ ] Create video tutorial
-  - How to play
-  - How to contribute
-  - Code walkthrough
+- [ ] Inline code comments
+  - Complex algorithms (AI hunt mode, placement validation)
+  - Business logic explanations
+  - **Files:** `src/logic/combat.ts`, `src/components/GameScreen.tsx`
 
-- [ ] Write blog post
-  - TDD journey
-  - React Native learnings
-  - Game development tips
+- [ ] Video tutorial
+  - How to play Battleships
+  - How to contribute (code walkthrough)
+  - Post on YouTube + link in README
+
+- [ ] Blog post about TDD journey
+  - React Native + TypeScript + Jest learnings
+  - Game development best practices
+  - Share on Dev.to or Medium
 
 ---
 
 ## 🔧 Infrastructure
 
 ### 📌 Medium
-- [ ] Add CI/CD pipeline
-  - GitHub Actions
-  - Run tests on PR
-  - Auto-deploy to Expo/Web
+- [ ] CI/CD pipeline
+  - GitHub Actions workflow
+  - Run tests on every PR
+  - Auto-deploy web build to Vercel/Netlify
+  - **File:** `.github/workflows/ci.yml` (new)
 
-- [ ] Add linting
-  - ESLint config
-  - Prettier config
-  - Pre-commit hooks (husky)
+- [ ] Code quality tools
+  - ESLint strict rules (no `any`, prefer-const, etc.)
+  - Prettier auto-format on save
+  - Pre-commit hooks via Husky
+  - **Files:** `.eslintrc.js`, `.prettierrc`
 
-- [ ] Add code quality tools
-  - SonarQube
-  - CodeClimate
-  - Dependency security checks
+- [ ] Security & monitoring
+  - Dependabot for dependency updates
+  - Snyk for vulnerability scanning
+  - Optional: Sentry for crash reporting (Stage 10)
 
 ---
 
-## 📊 Analytics & Monitoring
+## 📊 Analytics (Future)
 
 ### 💡 Nice-to-have
-- [ ] Add analytics
-  - Game plays
-  - Average game duration
-  - Most popular ship placements
-  - Win rate by first/second player
+- [ ] Game analytics
+  - Track: games played, avg duration, win rate
+  - Most popular ship placements (heatmap)
+  - Win rate: first player vs second player
+  - **Tool:** Firebase Analytics or custom backend
 
-- [ ] Add error tracking
-  - Sentry integration
-  - Crash reports
-  - Performance monitoring
-
----
-
-## 🎯 Current Sprint (Stage 6 - COMPLETED!)
-
-**Goal:** Quick UX improvements and AI enhancement ✅
-
-**Completed Tasks:**
-1. ✅ Add basic animations (fade-in on hit/miss)
-2. ✅ Improve AI (hunt mode after first hit)
-3. ✅ Add game statistics display
-4. ✅ Ready for mobile testing
+- [ ] Error tracking
+  - Sentry integration for React Native
+  - Crash reports with stack traces
+  - Performance monitoring (slow renders)
 
 ---
 
 ## 📅 Roadmap (Next 30 Days)
 
-| Week | Stage | Focus |
-|------|-------|-------|
-| 1 | ✅ 5 | Manual ship placement (DONE) |
-| 1-2 | ✅ 6 | Quick UX/AI improvements (DONE) |
-| 2-3 | 7 | Testing improvements OR Stage 8 |
-| 4 | 8/9 | Local multiplayer OR Mobile optimization |
+| Week | Stage | Focus | Priority |
+|------|-------|-------|----------|
+| 1-2 | 7 | Fix testing infrastructure + add E2E tests | 🔥 Critical |
+| 3 | 8 | Local multiplayer (hot-seat) | ⭐ High |
+| 4 | 9 | Mobile device testing (iOS + Android) | ⭐ High |
+| Future | 10 | Advanced features (power-ups, leaderboards) | 💡 Nice-to-have |
+
+**Decision:** Prioritize Stage 7 (testing) before new features to ensure code quality.
 
 ---
 
-## 💬 Questions / Decisions Needed
+## 💬 Open Questions
 
-- [x] ~~Target audience: Kids, adults, or both?~~ → **Wszyscy (all ages)**
-- [x] ~~Multiplayer priority: Local first, or online?~~ → **Local first (hot-seat)**
-- [x] ~~AI difficulty: Always random, or add smart mode?~~ → **Smart mode implemented!**
-- [ ] Should we support custom fleet configurations? (e.g., 2×4-cell ships)
-- [ ] Ship graphics: Realistic, cartoonish, or minimalist?
+- [ ] Should we support custom fleet configurations? (e.g., 2×4-cell battleships)
+  - **Consideration:** Affects game balance, placement algorithm
+  - **Decision:** Deferred to Stage 10 (custom game modes)
+
+- [ ] Ship graphics style: Realistic, cartoonish, or minimalist?
+  - **Current:** Minimalist (gray rectangles)
+  - **Feedback needed:** User preference survey?
+  - **Priority:** Stage 10 (visual polish)
+
+- [ ] Online multiplayer backend: Firebase vs Supabase vs custom?
+  - **Firebase:** Easy setup, real-time DB, free tier generous
+  - **Supabase:** Open-source, PostgreSQL, better for complex queries
+  - **Custom:** Full control, requires backend development
+  - **Decision:** Firebase (Stage 8b) for MVP, migrate to Supabase if needed
 
 ---
 
-**Last Updated:** After Stage 6 completion (2025-10-26)
-**Next Review:** Ready for Stage 7 or Stage 8
+**Last Updated:** 2025-11-01
+**Next Review:** After Stage 7 completion
+**Archive:** Completed stages moved to [CHANGELOG.md](./CHANGELOG.md)
